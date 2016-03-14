@@ -1,0 +1,64 @@
+:host {
+  box-sizing: border-box;
+  display: block;
+}
+
+#editor {
+  width: 100%;
+}
+
+ul {
+  display: inline-block;
+  list-style: none;
+  margin: 0 1em 0 0;
+  padding: 0;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+li {
+  float: left;
+  vertical-align: middle;
+}
+
+button {
+  text-align: center;
+  min-width: 3em;
+  height: 3em;
+  vertical-align: middle;
+
+  > span {
+    text-transform: none;
+  }
+}
+
+.big {
+  font-size: 1.8em;
+  vertical-align: middle;
+}
+
+.sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+.sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+.n-sup {
+  position: relative;
+
+  &::before {
+    content: 'n';
+    vertical-align: super;
+    font-size: .7em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-40%, -40%);
+  }
+}

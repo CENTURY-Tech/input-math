@@ -1,0 +1,29 @@
+{
+  "name": "ct-input-math",
+  "version": "0.0.0",
+  "authors": [
+    "Century Tech"
+  ],
+  "description": "WYSIWYG for math equations",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "century-tech"
+  ],
+  "main": "input-math.html",
+  "license": "MIT",
+  "homepage": "https://github.com/Draccoz/input-math",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer-ts": "~0.1.22",
+    "jquery": "^2.2.1",
+    "mathquill": "mathquill-build#0.11.1"
+  }
+}
