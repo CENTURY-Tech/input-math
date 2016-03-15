@@ -1,10 +1,10 @@
 <!-- DEPENDENCIES -->
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer-ts/polymer-ts.html">
+<link rel="import" href="../../jquery/dist/jquery.min.html">
 
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../bower_components/mathquill/build/mathquill.js"></script>
-<link rel="stylesheet" href="../bower_components/mathquill/build/mathquill.css">
+<script src="../../mathquill/build/mathquill.js"></script>
+<link rel="stylesheet" href="../../mathquill/build/mathquill.css">
 
 <dom-module id="input-math">
   <link rel="import" type="css" href="styles.css" inline>
@@ -14,7 +14,7 @@
         <ul class="button-group">
           <template is="dom-repeat" items="[[group]]">
             <li>
-              <button on-tap="cmd" class="cmd button">
+              <button on-tap="cmd" type="button" class="cmd button">
                 <span class$="[[item.className]]">[[item.name]]</span>
               </button>
             </li>

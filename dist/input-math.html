@@ -1,2 +1,170 @@
-<link rel=import href=../bower_components/polymer/polymer.html><link rel=import href=../bower_components/polymer-ts/polymer-ts.html><script src=../bower_components/jquery/dist/jquery.min.js></script><script src=../bower_components/mathquill/build/mathquill.js></script><link rel=stylesheet href=../bower_components/mathquill/build/mathquill.css><dom-module id=input-math><style type=css>:host{box-sizing:border-box;display:block}#editor{width:100%}ul{display:inline-block;list-style:none;margin:0 1em 0 0;padding:0}ul:last-of-type{margin-right:0}li{float:left;vertical-align:middle}button{text-align:center;min-width:3em;height:3em;vertical-align:middle}button>span{text-transform:none}.big{font-size:1.8em;vertical-align:middle}.sup{vertical-align:super;font-size:smaller}.sub{vertical-align:sub;font-size:smaller}.n-sup{position:relative}.n-sup::before{content:'n';vertical-align:super;font-size:.7em;position:absolute;top:0;left:0;-webkit-transform:translate(-40%, -40%);transform:translate(-40%, -40%)}
-</style><template><div id=controls><template is=dom-repeat items=[[symbols]] as=group><ul class=button-group><template is=dom-repeat items=[[group]]><li><button on-tap=cmd class="cmd button"><span class$=[[item.className]]>[[item.name]]</span></button></li></template></ul></template></div></template></dom-module><script>"use strict";var __extends=this&&this.__extends||function(d,b){function __(){this.constructor=d}for(var p in b)b.hasOwnProperty(p)&&(d[p]=b[p]);d.prototype=null===b?Object.create(b):(__.prototype=b.prototype,new __)},__decorate=this&&this.__decorate||function(decorators,target,key,desc){var d,c=arguments.length,r=3>c?target:null===desc?desc=Object.getOwnPropertyDescriptor(target,key):desc;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)r=Reflect.decorate(decorators,target,key,desc);else for(var i=decorators.length-1;i>=0;i--)(d=decorators[i])&&(r=(3>c?d(r):c>3?d(target,key,r):d(target,key))||r);return c>3&&r&&Object.defineProperty(target,key,r),r},__metadata=this&&this.__metadata||function(k,v){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(k,v):void 0},InputMath=function(_super){function InputMath(){_super.apply(this,arguments),this._observerLocked=!1,this._freezeHistory=!1}return __extends(InputMath,_super),InputMath.prototype.created=function(){var editor=this._editor=document.createElement("div");editor.id="editor",editor.classList.add(this.is),this._mathField=MathQuill.getInterface(2).MathField(editor,{spaceBehavesLikeTab:!0,handlers:{edit:this._updateValue.bind(this)}})},InputMath.prototype.ready=function(){this.insertBefore(this._editor,this.$.controls)},InputMath.prototype.cmd=function(ev){this._mathField.cmd(ev.model.item.cmd).focus()},InputMath.prototype.undo=function(){this._history&&this._history.length>0&&(this._freezeHistory=!0,this.value=this._history.pop(),this._freezeHistory=!1)},InputMath.prototype.valueChanged=function(value,prevValue){this._updateHistory(prevValue),this._observerLocked||(this._mathField.select().write(value),""===this._mathField.latex()&&this.undo())},InputMath.prototype.symbolsChanged=function(symbols){symbols&&(this.symbols=symbols.split(",").map(function(groupName){return InputMath["SYMBOLS_"+groupName.toUpperCase()]||[]}))},InputMath.prototype.keyShortcuts=function(ev){ev.ctrlKey&&90===ev.keyCode&&this.undo()},InputMath.prototype._updateValue=function(){this._observerLocked=!0,this.value=this._mathField.latex(),this._observerLocked=!1},InputMath.prototype._updateHistory=function(prevValue){this._history||(this._history=[]),this._freezeHistory||null==prevValue||(this._history.push(prevValue),this._history.length>InputMath.HISTORY_SIZE&&this._history.shift())},InputMath.HISTORY_SIZE=20,InputMath.SYMBOLS_BASIC=[{cmd:"\\sqrt",name:"√"},{cmd:"\\nthroot",name:"√",className:"n-sup"},{cmd:"\\int",name:"∫"},{cmd:"^",name:"n",className:"sup"},{cmd:"_",name:"n",className:"sub"},{cmd:"\\rightarrow",name:"→"},{cmd:"\\infty",name:"∞"},{cmd:"\\neq",name:"≠"},{cmd:"\\degree",name:"°"},{cmd:"\\div",name:"÷"}],InputMath.SYMBOLS_GREEK=[{cmd:"\\lambda",name:"λ"},{cmd:"\\pi",name:"π"},{cmd:"\\mu",name:"μ"},{cmd:"\\sum",name:"Σ"},{cmd:"\\alpha",name:"α"},{cmd:"\\beta",name:"β"},{cmd:"\\gamma",name:"γ"},{cmd:"\\delta",name:"ᵟ",className:"big"},{cmd:"\\Delta",name:"Δ"}],InputMath.SYMBOLS_PHYSICS=[{cmd:"\\ohm",name:"Ω"},{cmd:"\\phi",name:"ᶲ",className:"big"}],__decorate([property({type:String,value:"",reflectToAttribute:!0}),__metadata("design:type",String)],InputMath.prototype,"value",void 0),__decorate([property({type:Array,value:function(){return[InputMath.SYMBOLS_BASIC,InputMath.SYMBOLS_GREEK]}}),__metadata("design:type",Array)],InputMath.prototype,"symbols",void 0),__decorate([property({type:String,value:""}),__metadata("design:type",String)],InputMath.prototype,"showSymbols",void 0),__decorate([observe("value"),__metadata("design:type",Function),__metadata("design:paramtypes",[String,String]),__metadata("design:returntype",void 0)],InputMath.prototype,"valueChanged",null),__decorate([observe("showSymbols"),__metadata("design:type",Function),__metadata("design:paramtypes",[String]),__metadata("design:returntype",void 0)],InputMath.prototype,"symbolsChanged",null),__decorate([listen("keydown"),__metadata("design:type",Function),__metadata("design:paramtypes",[KeyboardEvent]),__metadata("design:returntype",void 0)],InputMath.prototype,"keyShortcuts",null),InputMath=__decorate([component("input-math"),__metadata("design:paramtypes",[])],InputMath)}(polymer.Base);InputMath.register();</script>
+<link rel=import href=../../polymer/polymer.html>
+<link rel=import href=../../polymer-ts/polymer-ts.html>
+<link rel=import href=../../jquery/dist/jquery.min.html>
+<script src=../../mathquill/build/mathquill.js></script>
+<link rel=stylesheet href=../../mathquill/build/mathquill.css>
+<dom-module id=input-math>
+  <style type=css>:host {
+    box-sizing: border-box;
+    display: block
+  }
+
+  #editor {
+    width: 100%
+  }
+
+  ul {
+    display: inline-block;
+    list-style: none;
+    margin: .5em 1em 0 0;
+    padding: 0;
+    font-size: 0.65em
+  }
+
+  ul:last-of-type {
+    margin-right: 0
+  }
+
+  li {
+    float: left;
+    vertical-align: middle
+  }
+
+  button {
+    text-align: center;
+    min-width: 3em;
+    height: 3em;
+    vertical-align: middle
+  }
+
+  button > span {
+    text-transform: none
+  }
+
+  .big {
+    font-size: 1.8em;
+    vertical-align: middle
+  }
+
+  .sup {
+    vertical-align: super;
+    font-size: smaller
+  }
+
+  .sub {
+    vertical-align: sub;
+    font-size: smaller
+  }
+
+  .n-sup {
+    position: relative
+  }
+
+  .n-sup::before {
+    content: 'n';
+    vertical-align: super;
+    font-size: .7em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: translate(-40%, -40%);
+    transform: translate(-40%, -40%)
+  }
+  </style>
+  <template>
+    <div id=controls>
+      <template is=dom-repeat items=[[symbols]] as=group>
+        <ul class=button-group>
+          <template is=dom-repeat items=[[group]]>
+            <li>
+              <button on-tap=cmd type=button class="cmd button"><span class$=[[item.className]]>[[item.name]]</span>
+              </button>
+            </li>
+          </template>
+        </ul>
+      </template>
+    </div>
+  </template>
+</dom-module>
+<script>"use strict";
+var __extends = this && this.__extends || function (d, b) {
+      function __() {
+        this.constructor = d
+      }
+
+      for (var p in b)b.hasOwnProperty(p) && (d[p] = b[p]);
+      d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __)
+    }, __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+      var d, c = arguments.length, r = 3 > c ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc;
+      if ("object" == typeof Reflect && "function" == typeof Reflect.decorate)r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--)(d = decorators[i]) && (r = (3 > c ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+      return c > 3 && r && Object.defineProperty(target, key, r), r
+    }, __metadata = this && this.__metadata || function (k, v) {
+      return "object" == typeof Reflect && "function" == typeof Reflect.metadata ? Reflect.metadata(k, v) : void 0
+    }, InputMath = function (_super) {
+  function InputMath() {
+    _super.apply(this, arguments), this._observerLocked = !1, this._freezeHistory = !1
+  }
+
+  return __extends(InputMath, _super), InputMath.prototype.created = function () {
+    var editor = this._editor = document.createElement("div");
+    editor.id = "editor", editor.classList.add(this.is), this._mathField = MathQuill.getInterface(2).MathField(editor, {
+      spaceBehavesLikeTab: !0,
+      handlers: {edit: this._updateValue.bind(this)}
+    })
+  }, InputMath.prototype.ready = function () {
+    this.insertBefore(this._editor, this.$.controls)
+  }, InputMath.prototype.cmd = function (ev) {
+    this._mathField.cmd(ev.model.item.cmd).focus()
+  }, InputMath.prototype.undo = function () {
+    this._history && this._history.length > 0 && (this._freezeHistory = !0, this.value = this._history.pop(), this._freezeHistory = !1)
+  }, InputMath.prototype.valueChanged = function (value, prevValue) {
+    this._updateHistory(prevValue), this._observerLocked || (this._mathField.select().write(value), "" === this._mathField.latex() && this.undo())
+  }, InputMath.prototype.symbolsChanged = function (symbols) {
+    symbols && (this.symbols = symbols.split(",").map(function (groupName) {
+      return InputMath["SYMBOLS_" + groupName.toUpperCase()] || []
+    }))
+  }, InputMath.prototype.keyShortcuts = function (ev) {
+    ev.ctrlKey && 90 === ev.keyCode && this.undo()
+  }, InputMath.prototype._updateValue = function () {
+    this._observerLocked = !0, this.value = this._mathField.latex(), this._observerLocked = !1
+  }, InputMath.prototype._updateHistory = function (prevValue) {
+    this._history || (this._history = []), this._freezeHistory || null == prevValue || (this._history.push(prevValue), this._history.length > InputMath.HISTORY_SIZE && this._history.shift())
+  }, InputMath.HISTORY_SIZE = 20, InputMath.SYMBOLS_BASIC = [{cmd: "\\sqrt", name: "√"}, {
+    cmd: "\\nthroot",
+    name: "√",
+    className: "n-sup"
+  }, {cmd: "\\int", name: "∫"}, {cmd: "^", name: "n", className: "sup"}, {
+    cmd: "_",
+    name: "n",
+    className: "sub"
+  }, {cmd: "\\rightarrow", name: "→"}, {cmd: "\\infty", name: "∞"}, {cmd: "\\neq", name: "≠"}, {
+    cmd: "\\degree",
+    name: "°"
+  }, {cmd: "\\div", name: "÷"}], InputMath.SYMBOLS_GREEK = [{cmd: "\\lambda", name: "λ"}, {
+    cmd: "\\pi",
+    name: "π"
+  }, {cmd: "\\mu", name: "μ"}, {cmd: "\\sum", name: "Σ"}, {cmd: "\\alpha", name: "α"}, {
+    cmd: "\\beta",
+    name: "β"
+  }, {cmd: "\\gamma", name: "γ"}, {cmd: "\\delta", name: "ᵟ", className: "big"}, {
+    cmd: "\\Delta",
+    name: "Δ"
+  }], InputMath.SYMBOLS_PHYSICS = [{cmd: "\\ohm", name: "Ω"}, {
+    cmd: "\\phi",
+    name: "ᶲ",
+    className: "big"
+  }], __decorate([property({
+    type: String,
+    value: "",
+    reflectToAttribute: !0
+  }), __metadata("design:type", String)], InputMath.prototype, "value", void 0), __decorate([property({
+    type: Array,
+    value: function () {
+      return [InputMath.SYMBOLS_BASIC, InputMath.SYMBOLS_GREEK]
+    }
+  }), __metadata("design:type", Array)], InputMath.prototype, "symbols", void 0), __decorate([property({
+    type: String,
+    value: ""
+  }), __metadata("design:type", String)], InputMath.prototype, "showSymbols", void 0), __decorate([observe("value"), __metadata("design:type", Function), __metadata("design:paramtypes", [String, String]), __metadata("design:returntype", void 0)], InputMath.prototype, "valueChanged", null), __decorate([observe("showSymbols"), __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", void 0)], InputMath.prototype, "symbolsChanged", null), __decorate([listen("keydown"), __metadata("design:type", Function), __metadata("design:paramtypes", [KeyboardEvent]), __metadata("design:returntype", void 0)], InputMath.prototype, "keyShortcuts", null), InputMath = __decorate([component("input-math"), __metadata("design:paramtypes", [])], InputMath)
+}(polymer.Base);
+InputMath.register();</script>
