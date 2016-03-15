@@ -1,5 +1,5 @@
 {
-  "name": "ct-input-math",
+  "name": "input-math",
   "version": "0.0.0",
   "description": "WYSIWYG for math equations",
   "main": "demo.html",
