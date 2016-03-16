@@ -12,7 +12,7 @@
   ],
   "main": "input-math.html",
   "license": "MIT",
-  "homepage": "https://github.com/Draccoz/input-math",
+  "homepage": "https://cdn.rawgit.com/CENTURY-Tech/input-math/0.0.6/dist/index.html",
   "ignore": [
     "**/.*",
     "node_modules",
