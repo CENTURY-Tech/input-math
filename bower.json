@@ -24,6 +24,6 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "polymer-ts": "~0.1.22",
     "mathquill": "mathquill-build#0.11.1",
-    "jquery": "git@github.com:Draccoz/jquery-dist.git#ec75e6c"
+    "jquery": "git@github.com:CENTURY-Tech/jquery-dist.git#ec75e6c"
   }
 }
