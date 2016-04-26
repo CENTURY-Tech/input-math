@@ -27,7 +27,7 @@ gulp.task("build:prod", ["clean:all", "lint:scss", "lint:ts"], function (cb) {
     ["copy:assets", "tsc:prod", "sass:prod"],
     "inline-and-minify",
     "clean:inline",
-    "generate-docs",
+//    "generate-docs",
     "copy:dist",
     cb);
 });
