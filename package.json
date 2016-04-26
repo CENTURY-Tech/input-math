@@ -48,7 +48,8 @@
     "test": "gulp test",
     "demo": "gulp demo",
     "start": "gulp develop",
-    "preinstall": "bower install"
+    "preinstall": "bower install",
+    "postinstall": "cd bower_components/mathquill && make"
   },
   "author": "Century Tech"
 }
