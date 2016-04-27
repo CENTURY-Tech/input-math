@@ -12,7 +12,7 @@ gulp.task("inline-and-minify", function () {
     .src(BUILD_DIR + "/*.html")
     .pipe(replace(/<!-- demo:(.*)-->/g, "$1"))
     .pipe(inlineSource({
-      compress: false
+      compress: true
     }))
     .pipe(minifyHTML())
     .pipe(gulp.dest(BUILD_DIR));

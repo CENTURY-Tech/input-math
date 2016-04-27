@@ -23,9 +23,10 @@ gulp.task("serve:docs", function () {
 gulp.task("serve:dev", ["build:dev"], function () {
   browserSync.init({
     server: {
-      baseDir: [BUILD_DIR, "src", "bower_components"],
+      baseDir: [BUILD_DIR, "src", "bower_components", "node_modules"],
       routes: {
-        "/bower_components": "bower_components"
+        "/bower_components": "bower_components",
+        "/node_modules": "node_modules"
       },
       index: "demo.html"
     }

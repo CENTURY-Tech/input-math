@@ -1,6 +1,6 @@
 {
   "name": "input-math",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "authors": [
     "Century Tech"
   ],
@@ -23,7 +23,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "polymer-ts": "~0.1.22",
-    "mathquill": "git@github.com:mathquill/mathquill.git",
     "jquery": "git@github.com:CENTURY-Tech/jquery-dist.git#ec75e6c"
   }
 }

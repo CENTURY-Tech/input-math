@@ -1,12 +1,14 @@
 {
   "name": "input-math",
-  "version": "0.0.0",
+  "version": "0.0.8",
   "description": "WYSIWYG for math equations",
   "main": "demo.html",
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mathquill": "git@github.com:mathquill/mathquill.git"
+  },
   "devDependencies": {
     "browser-sync": "^2.11.1",
     "del": "^2.2.0",
@@ -49,7 +51,7 @@
     "demo": "gulp demo",
     "start": "gulp develop",
     "preinstall": "bower install",
-    "postinstall": "cd bower_components/mathquill && make"
+    "postinstall": "cd node_modules/mathquill && make"
   },
   "author": "Century Tech"
 }
